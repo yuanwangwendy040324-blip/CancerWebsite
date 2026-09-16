@@ -1,35 +1,33 @@
 /* ===== Tokens ===== */
 :root {
-  --bg-0: #FFFFFF;
-  --bg-1: #F7F9FC;
-  --bg-2: #E9EEF6;
-  --surface: #FFFFFF;
-  --surface-hi: #F1F5FA;
-  --border: rgba(15,23,42,0.08);
-  --border-strong: rgba(15,23,42,0.16);
+  --bg-0: #0A0E1A;
+  --bg-1: #0F1526;
+  --bg-2: #131B30;
+  --surface: #182140;
+  --surface-hi: #1F2A4D;
+  --border: rgba(255,255,255,0.08);
+  --border-strong: rgba(255,255,255,0.16);
 
-  --ink: #101828;
-  --ink-muted: #475569;
-  --ink-faint: #667085;
+  --ink: #EDF1F7;
+  --ink-muted: #9AA7C2;
+  --ink-faint: #6B7A9B;
 
   --blue: #2E6BE6;
   --blue-dim: #1E4FB8;
-  --blue-glow: rgba(46,107,230,0.22);
-  --blue-text: #1D4ED8;
-  --blue-wash: rgba(46,107,230,0.07);
+  --blue-glow: rgba(46,107,230,0.35);
+  --blue-text: #6C93F0;
 
-  --teal: #0F766E;
-  --teal-dim: #0B5D57;
-  --teal-glow: rgba(15,118,110,0.18);
-  --teal-wash: rgba(15,118,110,0.06);
+  --teal: #22D3C3;
+  --teal-dim: #119488;
+  --teal-glow: rgba(34,211,195,0.28);
 
-  --red: #DC2626;
-  --red-dim: #B91C1C;
-  --red-glow: rgba(220,38,38,0.18);
+  --red: #EF4444;
+  --red-dim: #C62828;
+  --red-glow: rgba(239,68,68,0.30);
 
-  --gold: #B45309;
+  --gold: #FFC65C;
 
-  --card-shadow: 0 1px 2px rgba(16,24,40,0.04), 0 1px 3px rgba(16,24,40,0.03);
+  --card-shadow: none;
 
   --radius: 18px;
   --radius-sm: 10px;
@@ -93,7 +91,7 @@ code {
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(255,255,255,0.82);
+  background: rgba(10,14,26,0.82);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border);
@@ -160,7 +158,7 @@ code {
 .lang-toggle {
   display: flex;
   flex-shrink: 0;
-  background: var(--bg-2);
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 999px;
   padding: 3px;
@@ -246,10 +244,50 @@ code {
   flex-direction: column;
   justify-content: center;
   padding: 120px 28px 100px;
+  overflow: hidden;
   background:
-    radial-gradient(ellipse 900px 500px at 15% -10%, var(--blue-wash), transparent 60%),
-    radial-gradient(ellipse 800px 600px at 100% 20%, var(--teal-wash), transparent 55%),
+    radial-gradient(ellipse 900px 500px at 15% -10%, var(--blue-glow), transparent 60%),
+    radial-gradient(ellipse 800px 600px at 100% 20%, var(--teal-glow), transparent 55%),
     var(--bg-0);
+}
+
+/* Full-bleed background image, sitting behind the hero text and blended
+   into var(--bg-0) so it reads as part of the background, not a separate photo. */
+.hero-bg-image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 64% 28%;
+  filter: saturate(0.68) brightness(0.7) hue-rotate(-6deg) contrast(1.08);
+}
+
+.hero-bg-image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(100deg, var(--bg-0) 0%, var(--bg-0) 46%, transparent 80%),
+    linear-gradient(to top, var(--bg-0) 0%, transparent 30%),
+    linear-gradient(to bottom, var(--bg-0) 0%, transparent 22%),
+    radial-gradient(ellipse 32% 26% at 100% 100%, var(--bg-0) 45%, transparent 100%);
+  pointer-events: none;
+}
+
+.hero-bg-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgba(46,107,230,0.4), rgba(10,14,26,0) 65%);
+  mix-blend-mode: overlay;
+  pointer-events: none;
 }
 
 .hero-inner {
@@ -258,6 +296,21 @@ code {
   margin: 0 auto;
   position: relative;
   z-index: 1;
+  width: 100%;
+}
+
+.hero-text { max-width: 640px; }
+
+@media (max-width: 860px) {
+  .hero-image {
+    object-position: 70% 22%;
+    filter: saturate(0.55) brightness(0.4) hue-rotate(-6deg) contrast(1.05);
+  }
+  .hero-bg-image::before {
+    background:
+      linear-gradient(180deg, var(--bg-0) 0%, rgba(10,14,26,0.55) 30%, rgba(10,14,26,0.55) 55%, var(--bg-0) 92%),
+      radial-gradient(ellipse 45% 24% at 100% 100%, var(--bg-0) 50%, transparent 100%);
+  }
 }
 
 .eyebrow {
@@ -266,8 +319,8 @@ code {
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--teal);
-  border: 1px solid rgba(15,118,110,0.3);
-  background: rgba(15,118,110,0.08);
+  border: 1px solid rgba(34,211,195,0.35);
+  background: rgba(34,211,195,0.08);
   padding: 6px 14px;
   border-radius: 999px;
   margin-bottom: 28px;
@@ -299,7 +352,7 @@ code {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: var(--bg-2);
+  background: var(--surface);
   border: 1px solid var(--border-strong);
   color: var(--ink);
   font-weight: 700;
@@ -431,9 +484,9 @@ code {
   stroke: currentColor;
 }
 
-.icon-blue { background: rgba(46,107,230,0.12); color: var(--blue-text); }
-.icon-teal { background: rgba(15,118,110,0.12); color: var(--teal); }
-.icon-gold { background: rgba(180,83,9,0.12); color: var(--gold); }
+.icon-blue { background: rgba(46,107,230,0.14); color: var(--blue-text); }
+.icon-teal { background: rgba(34,211,195,0.14); color: var(--teal); }
+.icon-gold { background: rgba(255,198,92,0.14); color: var(--gold); }
 
 .stat-num {
   font-size: 44px;
@@ -573,8 +626,8 @@ code {
 }
 
 .rank-highlight {
-  border-color: rgba(220,38,38,0.35);
-  background: rgba(220,38,38,0.08);
+  border-color: rgba(239,68,68,0.4);
+  background: rgba(239,68,68,0.1);
 }
 
 .rank-highlight .rank-num {
@@ -743,7 +796,7 @@ code {
 /* ===== Growth card (market section) ===== */
 .growth-card {
   background: linear-gradient(165deg, var(--surface-hi), var(--surface));
-  border: 1px solid rgba(180,83,9,0.25);
+  border: 1px solid rgba(255,198,92,0.3);
   border-radius: var(--radius);
   box-shadow: var(--card-shadow);
   padding: 32px;
@@ -759,8 +812,8 @@ code {
   font-weight: 700;
   letter-spacing: 0.04em;
   color: var(--gold);
-  border: 1px solid rgba(180,83,9,0.3);
-  background: rgba(180,83,9,0.08);
+  border: 1px solid rgba(255,198,92,0.35);
+  background: rgba(255,198,92,0.08);
   padding: 5px 12px;
   border-radius: 999px;
 }
@@ -971,7 +1024,7 @@ code {
   background: var(--bg-1);
   border: 1px solid var(--border-strong);
   border-radius: 20px;
-  box-shadow: 0 24px 60px rgba(16,24,40,0.18), 0 4px 16px rgba(16,24,40,0.08);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.5);
   display: flex;
   flex-direction: column;
   overflow: hidden;

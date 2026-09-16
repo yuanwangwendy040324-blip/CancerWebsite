@@ -299,7 +299,22 @@ code {
   width: 100%;
 }
 
-.hero-text { max-width: 640px; }
+.hero-text {
+  position: relative;
+  max-width: 640px;
+}
+
+.hero-text::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  bottom: -40px;
+  left: -60px;
+  right: -70px;
+  background: linear-gradient(to right, var(--bg-0) 0%, var(--bg-0) 78%, transparent 100%);
+  z-index: -1;
+  pointer-events: none;
+}
 
 @media (max-width: 860px) {
   .hero-image {
